@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 const express = require('express');
 
 const cors = require('./src/middleware/cors');
-const furnitureController = require('./src/controllers/furnitureController');
+const { COLLECTION_NAME } = require('./src/config/constants');
 const router = require('./src/router');
 
 
 async function start() {
     try {
-        await mongoose.connect('mongodb://localhost:27017/furniture2');
+        await mongoose.connect(`mongodb://localhost:27017/${COLLECTION_NAME}`);
 
         console.log('DB Ready');
     } catch (err) {
