@@ -1,12 +1,12 @@
 const router = require('express').Router();
 
-router.get('/', function (req, res) {
-    res.json([]);
-});
+const furnitureService = require('../services/furnitureService');
 
-// router.post('/', function (req, res){
-    
-// }); 
+router.get('/', async function (req, res) {
+    const furniture = await furnitureService.getAll();
+
+    res.json(furniture);
+});
 
 
 module.exports = router;
