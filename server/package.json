@@ -1,0 +1,28 @@
+{
+  "name": "softuni-furniture2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PashataDLG/SoftUni-Furniture2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PashataDLG/SoftUni-Furniture2/issues"
+  },
+  "homepage": "https://github.com/PashataDLG/SoftUni-Furniture2#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.4.1",
+    "nodemon": "^2.0.18"
+  }
+}
