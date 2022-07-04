@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 
 const cors = require('./src/middleware/cors');
+const auth = require('./src/middleware/auth');
 const { COLLECTION_NAME } = require('./src/config/constants');
 const router = require('./src/router');
 
@@ -21,6 +22,7 @@ async function start() {
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
     app.use(cors());
+    app.use(auth());
 
     app.use(router);
 
