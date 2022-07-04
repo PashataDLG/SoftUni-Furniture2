@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
 const furnitureService = require('../services/furnitureService');
+const errorMapper = require('../util/errorMapper');
 
 router.get('/', async function (req, res) {
     const furniture = await furnitureService.getAll();
@@ -14,7 +15,9 @@ router.post('/', async function (req, res) {
 
         res.json(result);
     } catch (err) {
-        res.status(400).json({ message: 'Request error' });
+        console.error(err);
+        const message = errorMapper(err);
+        res.status(400).json({ message });
     }
 });
 
