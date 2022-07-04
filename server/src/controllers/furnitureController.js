@@ -2,6 +2,8 @@ const router = require('express').Router();
 
 const furnitureService = require('../services/furnitureService');
 const errorMapper = require('../util/errorMapper');
+const { isAuth, isOwner } = require('../middleware/routeGuards');
+const preload = require('../middleware/preload');
 
 router.get('/', async function (req, res) {
     const furniture = await furnitureService.getAll();
@@ -9,9 +11,13 @@ router.get('/', async function (req, res) {
     res.json(furniture);
 });
 
-router.post('/', async function (req, res) {
+router.post('/', isAuth, async function (req, res) {
+    let furnitureData = req.body;
+
+    furnitureData.ownerId = req.user._id;
+
     try {
-        const result = await furnitureService.createFurniture(req.body);
+        const result = await furnitureService.createFurniture(furnitureData);
 
         res.json(result);
     } catch (err) {
@@ -21,19 +27,11 @@ router.post('/', async function (req, res) {
     }
 });
 
-router.get('/:id', async function (req, res) {
-    const id = req.params.id;
-
-    const furniture = await furnitureService.getById(id);
-
-    if (furniture) {
-        res.json(furniture);
-    } else {
-        res.status(404).json({ message: `Furniture ${id} not found` });
-    }
+router.get('/:id', preload(furnitureService), async function (req, res) {
+    res.json(res.locals.item);
 });
 
-router.put('/:id', async function (req, res) {
+router.put('/:id', isOwner, async function (req, res) {
     const id = req.params.id;
     const furnitureData = req.body;
 
@@ -46,7 +44,7 @@ router.put('/:id', async function (req, res) {
     }
 });
 
-router.delete('/:id', async function (req, res) {
+router.delete('/:id', isAuth, isOwner, async function (req, res) {
     const id = req.params.id;
 
     try {
