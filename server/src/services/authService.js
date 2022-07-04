@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { SECRET } = require('../config/constants');
 
+const blacklist = new Set();
+
 exports.register = async (userData) => {
     const existing = await User.findOne({ email: new RegExp(`^${userData.email}$`, 'i') });
 
@@ -36,6 +38,10 @@ exports.login = async (userData) => {
     return createSession(user);
 };
 
+exports.logout = (token) => {
+    blacklist.add(token);
+};
+
 function createSession(user) {
     const payload = {
         email: user.email,
@@ -49,4 +55,11 @@ function createSession(user) {
         accessToken,
         _id: user._id
     };
-}
+};
+
+exports.validateToken = (token) => {
+    if (blacklist.has(token)) {
+        throw new Error('Token is blacklisted');
+    }
+    return jwt.verify(token, JWT_SECRET);
+};
