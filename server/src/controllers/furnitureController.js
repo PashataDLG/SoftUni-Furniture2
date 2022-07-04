@@ -6,9 +6,14 @@ const { isAuth, isOwner } = require('../middleware/routeGuards');
 const preload = require('../middleware/preload');
 
 router.get('/', async function (req, res) {
-    const furniture = await furnitureService.getAll();
+    try {
+        const furniture = await furnitureService.getAll(req.query.where);
+        
+        res.json(furniture);
+    } catch (err) {
+        res.status(400).json({ message: 'Bad request' });
+    }
 
-    res.json(furniture);
 });
 
 router.post('/', isAuth, async function (req, res) {

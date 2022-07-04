@@ -1,6 +1,13 @@
 const Furniture = require('../models/Furniture');
 
-exports.getAll = () => Furniture.find();
+exports.getAll = (query) => {
+    if (query) {
+        const userId = query.split('=')[1].slice(1, -1);
+        return Furniture.find({ _ownerId: userId });
+    };
+
+    return Furniture.find();
+};
 
 exports.createFurniture = (furnitureData) => Furniture.create(furnitureData);
 
