@@ -21,11 +21,12 @@ router.post('/', async function (req, res) {
 router.get('/:id', async function (req, res) {
     const id = req.params.id;
 
-    try {
-        const furniture = await furnitureService.getById(id);
+    const furniture = await furnitureService.getById(id);
+
+    if(furniture){
         res.json(furniture);
-    } catch (err) {
-        res.status(404).json({ message: 'Furniture not found'});
+    } else {
+        res.status(404).json({ message: `Furniture ${id} not found`});
     }
 });
 
