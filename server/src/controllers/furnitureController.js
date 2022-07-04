@@ -14,7 +14,7 @@ router.get('/', async function (req, res) {
 router.post('/', isAuth, async function (req, res) {
     let furnitureData = req.body;
 
-    furnitureData.ownerId = req.user._id;
+    furnitureData._ownerId = req.user._id;
 
     try {
         const result = await furnitureService.createFurniture(furnitureData);
