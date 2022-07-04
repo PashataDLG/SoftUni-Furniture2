@@ -3,7 +3,6 @@ const router = require('express').Router();
 const furnitureService = require('../services/furnitureService');
 
 router.get('/', async function (req, res) {
-    console.log(req.query.where);
     const furniture = await furnitureService.getAll();
 
     res.json(furniture);
@@ -15,8 +14,18 @@ router.post('/', async function (req, res) {
         
         res.json(result);
     } catch (err) {
-        console.log(err);
         res.status(400).json({ message: 'Request error'});
+    }
+});
+
+router.get('/:id', async function (req, res) {
+    const id = req.params.id;
+
+    try {
+        const furniture = await furnitureService.getById(id);
+        res.json(furniture);
+    } catch (err) {
+        res.status(404).json({ message: 'Furniture not found'});
     }
 });
 

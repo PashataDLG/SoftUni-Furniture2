@@ -5,3 +5,5 @@ exports.createFurniture = (furnitureData) => Furniture.createFurniture(furniture
 exports.getAll = () => Furniture.find();
 
 exports.createFurniture = (furnitureData) => Furniture.create(furnitureData);
+
+exports.getById = (furnitureId) => Furniture.findById(furnitureId);
