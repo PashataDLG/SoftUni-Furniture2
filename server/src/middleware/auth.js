@@ -1,3 +1,5 @@
+const { validateToken } = require('../services/authService');
+
 module.exports = () => (req, res, next) => {
     const token = req.headers['x-authorization'];
 

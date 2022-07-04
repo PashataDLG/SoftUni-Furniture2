@@ -61,5 +61,5 @@ exports.validateToken = (token) => {
     if (blacklist.has(token)) {
         throw new Error('Token is blacklisted');
     }
-    return jwt.verify(token, JWT_SECRET);
+    return jwt.verify(token, SECRET);
 };
