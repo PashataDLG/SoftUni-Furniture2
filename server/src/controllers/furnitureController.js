@@ -30,5 +30,18 @@ router.get('/:id', async function (req, res) {
     }
 });
 
+router.put('/:id', async function (req, res){
+    const id = req.params.id;
+    const furnitureData = req.body;
+
+    const furniture = await furnitureService.updateFurniture(id, furnitureData);
+
+    if(furniture){
+        res.json(furniture);
+    } else {
+        res.status(404).json({ message: `Furniture ${id} not found`});
+    }
+});
+
 
 module.exports = router;
