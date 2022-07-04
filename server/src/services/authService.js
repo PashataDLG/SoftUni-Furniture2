@@ -48,7 +48,7 @@ function createSession(user) {
         _id: user._id
     };
 
-    const accessToken = jwt.sign(payload, SECRET);
+    const accessToken = jwt.sign(payload, SECRET, { expiresIn: '2d' });
 
     return {
         email: user.email,
