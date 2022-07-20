@@ -16,7 +16,7 @@ module.exports = () => (req, res, next) => {
             res.locals.user = payload;
         } catch (err) {
             console.error(err);
-            return res.status(401).json({ message: 'Invalid access token. Please log in'});
+            return res.status(401).json({ message: 'Invalid access token. Please log in' });
         }
     }
 
